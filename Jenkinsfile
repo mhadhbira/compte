@@ -12,12 +12,14 @@ pipeline {
         stage('Build') {
             steps {
                 // Build the Spring Boot application with Maven
+                 sh 'chmod +x mvnw'
                 sh './mvnw clean install'
             }
         }
 
         stage('Test') {
             steps {
+                 sh 'chmod +x mvnw'
                 // Run the tests
                 sh './mvnw test'
             }

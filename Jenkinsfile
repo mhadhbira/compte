@@ -20,10 +20,6 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/mhadhbira/compte.git'
             }
         }
-        stage('Clean Target Manually') {
-            steps {
-                sh 'rm -rf target'
-            }
         }
         stage('Build') {
             steps {
@@ -33,6 +29,7 @@ pipeline {
                  sh 'chmod +x mvnw'
                  sh './mvnw --version'
                  sh 'docker version'
+                 sh 'chmod -R 777 target || true'  // Ensure the target directory is writable
                  sh './mvnw clean install'
             }
         }

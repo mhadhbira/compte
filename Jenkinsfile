@@ -20,12 +20,6 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/mhadhbira/compte.git'
             }
         }
-        stage('Clean Target') {
-            steps {
-                // Remove the target directory before running Maven
-                sh 'rm -rf target'
-            }
-        }
         stage('Build') {
             steps {
                 // Crée le répertoire .m2 avec les permissions nécessaires

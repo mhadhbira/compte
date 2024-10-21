@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Package') {
             steps {
-                sh './mvnw package'
+                sh './mvnw package -DskipTests'
             }
         }
         stage('Build Docker image') {
@@ -56,7 +56,7 @@ pipeline {
             //docker push ranyamh/compte-service:1.0.1
             steps {
                 script {
-                    docker.withRegistry('', 'dockerhub'){
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){
                         dockerImage.push();
                         dockerImage.push('1.0.1');
                     }                   

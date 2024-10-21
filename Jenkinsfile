@@ -20,7 +20,12 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/mhadhbira/compte.git'
             }
         }
-        
+    stages {
+        stage('Clean Target Manually') {
+            steps {
+                sh 'rm -rf target'
+            }
+        }
         stage('Build') {
             steps {
                 // Crée le répertoire .m2 avec les permissions nécessaires
@@ -29,7 +34,7 @@ pipeline {
                  sh 'chmod +x mvnw'
                  sh './mvnw --version'
                  sh 'docker version'
-                 sh './mvnw clean install'
+                 sh './mvnw clean install -U'
             }
         }
 

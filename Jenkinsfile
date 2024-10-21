@@ -4,9 +4,12 @@ pipeline {
         docker {
             image 'maven:3.6.3'
             //args '-v $HOME/.m2:/root/.m2' // spécifier un répertoire pour que Maven stocke ses fichiers dans un endroit où il a les permissions
+            args '--user root'
         }
     }
-
+    environment {
+        MAVEN_OPTS = "-Dmaven.repo.local=/tmp/.m2/repository"
+    }
     stages {
         stage('Checkout') {
             steps {

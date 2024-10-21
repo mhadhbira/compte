@@ -28,7 +28,6 @@ pipeline {
                  sh 'chmod +x mvnw'
                  sh './mvnw --version'
                  sh 'docker --version'
-                 sh 'chmod -R 777 target || true'  // Ensure the target directory is writable
                  sh './mvnw clean install'
             }
         }

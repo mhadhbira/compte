@@ -28,6 +28,7 @@ pipeline {
                  sh 'chmod +x mvnw'
                  sh './mvnw --version'
                  sh 'docker --version'
+                 sh 'chmod -R 777 /var/jenkins_home/workspace/compte-service-pipeline-1/target || true'  // Ensure the target directory is writable
                  sh './mvnw clean install'
             }
         }

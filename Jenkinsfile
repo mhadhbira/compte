@@ -1,5 +1,6 @@
 pipeline {
-    agent any
+    //agent any
+    agent { docker { image 'maven:3.6.3' } }
 
     stages {
         stage('Checkout') {
@@ -13,7 +14,8 @@ pipeline {
             steps {
                 // Build the Spring Boot application with Maven
                  sh 'chmod +x mvnw'
-                sh './mvnw clean install'
+                 sh './mvnw --version'
+                 sh './mvnw clean install'
             }
         }
 

@@ -20,7 +20,6 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/mhadhbira/compte.git'
             }
         }
-        }
         stage('Build') {
             steps {
                 // Crée le répertoire .m2 avec les permissions nécessaires

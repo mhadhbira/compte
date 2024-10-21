@@ -32,7 +32,6 @@ pipeline {
                  sh './mvnw clean install'
             }
         }
-
         stage('Test') {
             steps {
                  sh 'chmod +x mvnw'
@@ -40,8 +39,33 @@ pipeline {
                 sh './mvnw test'
             }
         }
-    }
+        stage('Package') {
+            steps {
+                sh './mvnw package'
+            }
+        }
+        stage('Build Docker image') {
+            steps{
+              //docker build -t ranyamh/compte-service:1.0.1
+              script {
+                dockerImage = docker.build("ranyamh/compte-service:${env.BUILD_TAG}")
+              }  
+            }            
+        }
+        stage('Push docker image') {
+            //docker push ranyamh/compte-service:1.0.1
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub'){
+                        dockerImage.push();
+                        dockerImage.push('1.0.1');
+                    }                   
+                }
+            }
+            
+        }
 
+    }
     post{
         always {
             echo 'I run always'

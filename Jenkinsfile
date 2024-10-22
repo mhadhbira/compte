@@ -47,7 +47,9 @@ pipeline {
         stage('Build Docker image') {
             steps{
               //docker build -t ranyamh/compte-service:1.0.1 .
-              script {              
+              script {   
+                // Unset DOCKER_HOST to avoid connection issues
+                sh 'unset DOCKER_HOST'           
                 dockerImage = docker.build("ranyamh/compte-service:${env.BUILD_TAG}")
               }  
             }            
@@ -56,8 +58,6 @@ pipeline {
             //docker push ranyamh/compte-service:1.0.1
             steps {
                 script {
-                    // Unset DOCKER_HOST to avoid connection issues
-                    sh 'unset DOCKER_HOST'
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){
                         dockerImage.push();
                         dockerImage.push('1.0.1');
